@@ -1,0 +1,9 @@
+/* app css stylesheet */
+
+.sidebar-module h3 {
+    margin-top: 0;
+}
+
+.badge {
+    background-color: #d9534f;
+}

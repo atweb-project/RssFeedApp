@@ -1,0 +1,58 @@
+<div class="page-header">
+    <h1>Angular Rss Feed Reader</h1>
+
+    <p class="lead">Simple Angular rss app</p>
+</div>
+<form ng-submit="addUrls()">
+    <div class="form-group form-group-lg">
+        <label class="control-label" for="inputHelpBlock">Please put your Rss Feed Url to the input field</label>
+
+        <div class="row">
+            <div class="col-md-9">
+                <input type="text" ng-model="feedSrc" id="inputHelpBlock" class="form-control"
+                       aria-describedby="helpBlock" placeholder="Enter your feed url">
+            </div>
+            <div class="col-md-3">
+            <button type="submit" class="btn btn-primary btn-lg" ng-click="loadFeed($event);">Load</button>
+            </div>
+        </div>
+        <span id="helpBlock" class="help-block">e.g. Google Tech News insert: https://news.google.com/news?cf=all&ned=us&hl=en&topic=tc&output=rss.</span>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-4">
+        <div class="input-group" ng-show="feeds.length > 0">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+            <input class="form-control" type="text" placeholder="Search" data-ng-model="filterText"/>
+        </div>
+    </div>
+</div>
+<div>
+    <h4>
+        <span class="label label-primary" ng-show="feeds.length > 0">{{(feeds | filter:filterText).length}} Items</span>
+    </h4>
+</div>
+<div class="row">
+    <div class="col-md-7">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="feed in feeds | filter:filterText">
+                <h5><a href="{{feed.link}}">{{feed.title}}</a></h5>
+
+                <p class="text-left">{{feed.contentSnippet}}</p>
+                <span class="small">{{feed.publishedDate}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 col-md-offset-1">
+        <div class="sidebar-module">
+            <h3>Latest 5 Rss Url's</h3>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="url in urls | limitTo: -5 track by $index "><a
+                        href="{{url.url}}" target="_blank"><span class="badge">{{$index + 1}}</span> {{
+                    url.url }}</a></li>
+            </ul>
+        </div>
+        <!-- /.blog-sidebar -->
+    </div>
+
+</div>
